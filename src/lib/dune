@@ -1,0 +1,24 @@
+(library
+ (name ISO3166)
+ (public_name ISO3166)
+ (libraries))
+
+(rule
+ (alias default)
+ (deps ../gen/main.exe)
+ (targets ISO3166.ml)
+ (mode promote)
+ (action
+  (with-stdout-to
+   ISO3166.ml
+   (run ../gen/main.exe))))
+
+(rule
+ (alias default)
+ (deps ../gen/main.exe)
+ (targets ISO3166.mli)
+ (mode promote)
+ (action
+  (with-stdout-to
+   ISO3166.mli
+   (run ../gen/main.exe mli))))
