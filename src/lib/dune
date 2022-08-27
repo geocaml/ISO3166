@@ -3,22 +3,26 @@
  (public_name ISO3166)
  (libraries))
 
-(rule
- (alias default)
- (deps ../gen/main.exe)
- (targets ISO3166.ml)
- (mode promote)
- (action
-  (with-stdout-to
-   ISO3166.ml
-   (run ../gen/main.exe))))
+;  There's probably a nicer way to do this, but for releasing
+;  or pushing code to the repo, we disable the generation code.
+;  When developing locally, uncomment the following stanzas.
 
-(rule
- (alias default)
- (deps ../gen/main.exe)
- (targets ISO3166.mli)
- (mode promote)
- (action
-  (with-stdout-to
-   ISO3166.mli
-   (run ../gen/main.exe mli))))
+; (rule
+;  (alias default)
+;  (deps ../gen/main.exe)
+;  (targets ISO3166.ml)
+;  (mode promote)
+;  (action
+;   (with-stdout-to
+;    ISO3166.ml
+;    (run ../gen/main.exe))))
+
+; (rule
+;  (alias default)
+;  (deps ../gen/main.exe)
+;  (targets ISO3166.mli)
+;  (mode promote)
+;  (action
+;   (with-stdout-to
+;    ISO3166.mli
+;    (run ../gen/main.exe mli))))

@@ -15,9 +15,17 @@ The `Country` module already contains all of the countries for convenience named
 - : string = "France"
 ```
 
+The original use-case for this library was to encode the conversion from alpha2 country codes to strings. Lots of public APIs that provide country-specific information use ISO3166 to distinguish between countries.
+
+```ocaml
+# ISO3166.alpha2_to_string `ES;;
+- : string = "ES"
+```
+
 ## Data Source
 
 The data that generates the OCalm file comes from https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/commit/6741ae83a08ce1802d22849db0a944d99e254bae  which has the following disclaimer which applies to this library too.
 
 > Please check the data independently for accuracy before using it in any system and for any purpose
+>
 > Although I've tried to ensure the data is as accurate as possible, the data is not authoritative, and so should not be considered accurate
