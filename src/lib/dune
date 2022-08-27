@@ -1,7 +1,9 @@
 (library
  (name ISO3166)
- (public_name ISO3166)
- (libraries))
+ (public_name ISO3166))
+
+(documentation
+ (package ISO3166))
 
 ;  There's probably a nicer way to do this, but for releasing
 ;  or pushing code to the repo, we disable the generation code.

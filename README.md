@@ -13,6 +13,8 @@ The `Country` module already contains all of the countries for convenience named
 ```ocaml
 # ISO3166.Country.fr |> ISO3166.Country.name;;
 - : string = "France"
+# ISO3166.Country.fr |> ISO3166.Country.numeric |> ISO3166.numeric_to_string;;
+- : string = "250"
 ```
 
 The original use-case for this library was to encode the conversion from alpha2 country codes to strings. Lots of public APIs that provide country-specific information use ISO3166 to distinguish between countries.

@@ -1506,6 +1506,22 @@ let alpha3_of_string = function
   | "ZWE" -> `ZWE
   | s -> failwith ("Invalid Alpha 3 code: " ^ s)
 
+type numeric = int
+
+let numeric_to_int v = v
+
+let numeric_of_int v =
+  if v < 0 || v > 999 then
+    invalid_arg "Numeric country code is not between 0-999"
+  else v
+
+let numeric_to_string v =
+  if v < 10 then "00" ^ string_of_int v
+  else if v >= 10 && v < 100 then "0" ^ string_of_int v
+  else string_of_int v
+
+let numeric_of_string v = numeric_of_int (int_of_string v)
+
 module Country = struct
   type t = {
     name : string;

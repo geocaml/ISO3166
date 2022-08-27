@@ -126,7 +126,9 @@ module OCaml = struct
 
   let pp_country_mli ppf c =
     let name = get_name c in
-    pf ppf "val %s : t" (String.lowercase_ascii name)
+    pf ppf "val %s : t\n(** Country information for %s. *)\n\n"
+      (String.lowercase_ascii name)
+      c.name
 
   let pp_country_module_mli ppf cs =
     pf ppf
@@ -141,9 +143,8 @@ module OCaml = struct
       val alpha3 : t -> alpha3
       (** The three letter country code. *)
 
-      val numeric : t -> int
-      (** A numeric country code, note that these are often given as three digits with
-          with smaller numbers getting padded with [0]. *)
+      val numeric : t -> numeric
+      (** The numeric country code. *)
 
       val name : t -> string
       (** The english name of the country *)
@@ -179,6 +180,46 @@ module OCaml = struct
       \ %a\n\
        | _ -> invalid_arg (\"No such country with numerical code\")"
       (pp_list pp) cs
+
+  let numeric_impl =
+    const
+      {|
+      type numeric = int
+      let numeric_to_int v = v
+      let numeric_of_int v = 
+        if v < 0 || v > 999 then invalid_arg "Numeric country code is not between 0-999"
+        else v
+      
+      let numeric_to_string v =
+        if v < 10 then "00" ^ string_of_int v
+        else if v >= 10 && v < 100 then "0" ^ string_of_int v
+        else string_of_int v
+
+      let numeric_of_string v =
+        numeric_of_int (int_of_string v)
+    |}
+
+  let numeric_intf =
+    const
+      {|
+        type numeric
+        (** An abstract type to represent a three-digit country code. *)
+        
+        val numeric_to_int : numeric -> int
+        (** The integer representation of the three-digit code. Note this won't be
+            three-digits if less than [100]. Use {! numeric_to_string} if you need that. *)
+
+        val numeric_of_int : int -> numeric
+        (** Convert from an integer, this will only check that the number falls between [0-999]
+            and raise [Invalid_argument] if it doesn't. There is no check that the integer is in fact
+            a valid, assigned numeric country code. *)
+        
+        val numeric_to_string : numeric -> string
+        (** Conversion to a three-digit string representation. *)
+  
+        val numeric_of_string : string -> numeric
+        (** This is [numeric_of_int (int_of_string v)]. *)
+      |}
 end
 
 let implementation countries =
@@ -188,6 +229,7 @@ let implementation countries =
   Format.printf "%a\n\n" OCaml.alpha_3_of_countries countries;
   Format.printf "%a\n\n" OCaml.alpha_3_to_string countries;
   Format.printf "%a\n\n" OCaml.alpha_3_of_string countries;
+  Format.printf "%a\n\n" OCaml.numeric_impl ();
   Format.printf "%a\n\n" OCaml.pp_country_module countries;
   Format.printf "%a\n\n" OCaml.pp_alpha2_to_country countries;
   Format.printf "%a\n\n" OCaml.pp_alpha3_to_country countries;
@@ -200,6 +242,7 @@ let interface countries =
   Format.printf "%a\n\n" OCaml.alpha_3_of_countries countries;
   Format.printf "val alpha3_to_string : alpha3 -> string\n\n";
   Format.printf "val alpha3_of_string : string -> alpha3\n\n";
+  Format.printf "%a\n\n" OCaml.numeric_intf ();
   Format.printf "%a" OCaml.pp_country_module_mli countries;
   Format.printf "val alpha2_to_country : alpha2 -> Country.t\n\n";
   Format.printf "val alpha3_to_country : alpha3 -> Country.t\n\n";

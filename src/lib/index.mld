@@ -1,0 +1,42 @@
+{1 ISO3166}
+
+This library provides an interface to the {{: https://www.iso.org/iso-3166-country-codes.html} ISO3166} standard. This defines "country codes".
+These are short, unique codes that identify a given country. In the ISO3166-1 standard 
+there are three kinds of codes.
+
+{ul {- {! ISO3166.alpha2}: This is a two-letter country code. }
+    {- {! ISO3166.alpha3}: This is a three-letter country code. This is usually more closely related to the country's name. }
+    {- {! ISO3166.numeric}: This is a three-digit country code which is useful for systems using non-Latin scripts. }
+}
+
+{2 Usage}
+
+{3 Public APIs}
+
+The library provides a few different ways of interacting with this information. One useful way to use the library
+is when wrapping public APIs that might uses [alpha2] to refine access to some resource in a country-specific way.
+You might then wish to type this in you OCaml API.
+
+{[
+  val get_population : ISO3166.alpha2 -> int
+]}
+
+Which might then have an implementation along the lines of:
+
+{[
+  let get_population alpha2 =
+    Client.get (Endpoint.population ^ "/" ^ ISO3166.alpha2_to_string alpha2)
+]}
+
+{3 Low-level Country Information}
+
+The library also encodes all of the country information in the {! ISO3166.Country} module.
+This could be used as a way to provide another means to getting country-specific information.
+
+For example, you could extract the numeric code but ask a user to provide a {! ISO3166.Country.t} instead.
+
+{[
+  let num_fr = ISO3166.Country.fr |> ISO3166.Country.numeric |> ISO3166.numeric_to_string
+]}
+
+In this small example [num_fr] will be ["250"].
