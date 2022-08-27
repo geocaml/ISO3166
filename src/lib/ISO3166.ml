@@ -1507,47 +1507,281 @@ let alpha3_of_string = function
   | s -> failwith ("Invalid Alpha 3 code: " ^ s)
 
 module Country = struct
-  type t = { name : string; alpha2 : alpha2; alpha3 : alpha3; numeric : int }
+  type t = {
+    name : string;
+    alpha2 : alpha2;
+    alpha3 : alpha3;
+    numeric : int;
+    region : string option;
+    sub_region : string option;
+  }
 
   let alpha2 t = t.alpha2
   let alpha3 t = t.alpha3
   let numeric t = t.numeric
   let name t = t.name
-  let af = { name = "Afghanistan"; alpha2 = `AF; alpha3 = `AFG; numeric = 4 }
+  let region t = t.region
+  let sub_region t = t.sub_region
+
+  let af =
+    {
+      name = "Afghanistan";
+      alpha2 = `AF;
+      alpha3 = `AFG;
+      numeric = 4;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
 
   let ax =
-    { name = "Åland Islands"; alpha2 = `AX; alpha3 = `ALA; numeric = 248 }
+    {
+      name = "Åland Islands";
+      alpha2 = `AX;
+      alpha3 = `ALA;
+      numeric = 248;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
 
-  let al = { name = "Albania"; alpha2 = `AL; alpha3 = `ALB; numeric = 8 }
-  let dz = { name = "Algeria"; alpha2 = `DZ; alpha3 = `DZA; numeric = 12 }
+  let al =
+    {
+      name = "Albania";
+      alpha2 = `AL;
+      alpha3 = `ALB;
+      numeric = 8;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let dz =
+    {
+      name = "Algeria";
+      alpha2 = `DZ;
+      alpha3 = `DZA;
+      numeric = 12;
+      region = Some "Africa";
+      sub_region = Some "Northern Africa";
+    }
 
   let as' =
-    { name = "American Samoa"; alpha2 = `AS; alpha3 = `ASM; numeric = 16 }
+    {
+      name = "American Samoa";
+      alpha2 = `AS;
+      alpha3 = `ASM;
+      numeric = 16;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
 
-  let ad = { name = "Andorra"; alpha2 = `AD; alpha3 = `AND; numeric = 20 }
-  let ao = { name = "Angola"; alpha2 = `AO; alpha3 = `AGO; numeric = 24 }
-  let ai = { name = "Anguilla"; alpha2 = `AI; alpha3 = `AIA; numeric = 660 }
-  let aq = { name = "Antarctica"; alpha2 = `AQ; alpha3 = `ATA; numeric = 10 }
+  let ad =
+    {
+      name = "Andorra";
+      alpha2 = `AD;
+      alpha3 = `AND;
+      numeric = 20;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let ao =
+    {
+      name = "Angola";
+      alpha2 = `AO;
+      alpha3 = `AGO;
+      numeric = 24;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ai =
+    {
+      name = "Anguilla";
+      alpha2 = `AI;
+      alpha3 = `AIA;
+      numeric = 660;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let aq =
+    {
+      name = "Antarctica";
+      alpha2 = `AQ;
+      alpha3 = `ATA;
+      numeric = 10;
+      region = None;
+      sub_region = None;
+    }
 
   let ag =
-    { name = "Antigua and Barbuda"; alpha2 = `AG; alpha3 = `ATG; numeric = 28 }
+    {
+      name = "Antigua and Barbuda";
+      alpha2 = `AG;
+      alpha3 = `ATG;
+      numeric = 28;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
-  let ar = { name = "Argentina"; alpha2 = `AR; alpha3 = `ARG; numeric = 32 }
-  let am = { name = "Armenia"; alpha2 = `AM; alpha3 = `ARM; numeric = 51 }
-  let aw = { name = "Aruba"; alpha2 = `AW; alpha3 = `ABW; numeric = 533 }
-  let au = { name = "Australia"; alpha2 = `AU; alpha3 = `AUS; numeric = 36 }
-  let at = { name = "Austria"; alpha2 = `AT; alpha3 = `AUT; numeric = 40 }
-  let az = { name = "Azerbaijan"; alpha2 = `AZ; alpha3 = `AZE; numeric = 31 }
-  let bs = { name = "Bahamas"; alpha2 = `BS; alpha3 = `BHS; numeric = 44 }
-  let bh = { name = "Bahrain"; alpha2 = `BH; alpha3 = `BHR; numeric = 48 }
-  let bd = { name = "Bangladesh"; alpha2 = `BD; alpha3 = `BGD; numeric = 50 }
-  let bb = { name = "Barbados"; alpha2 = `BB; alpha3 = `BRB; numeric = 52 }
-  let by = { name = "Belarus"; alpha2 = `BY; alpha3 = `BLR; numeric = 112 }
-  let be = { name = "Belgium"; alpha2 = `BE; alpha3 = `BEL; numeric = 56 }
-  let bz = { name = "Belize"; alpha2 = `BZ; alpha3 = `BLZ; numeric = 84 }
-  let bj = { name = "Benin"; alpha2 = `BJ; alpha3 = `BEN; numeric = 204 }
-  let bm = { name = "Bermuda"; alpha2 = `BM; alpha3 = `BMU; numeric = 60 }
-  let bt = { name = "Bhutan"; alpha2 = `BT; alpha3 = `BTN; numeric = 64 }
+  let ar =
+    {
+      name = "Argentina";
+      alpha2 = `AR;
+      alpha3 = `ARG;
+      numeric = 32;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let am =
+    {
+      name = "Armenia";
+      alpha2 = `AM;
+      alpha3 = `ARM;
+      numeric = 51;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let aw =
+    {
+      name = "Aruba";
+      alpha2 = `AW;
+      alpha3 = `ABW;
+      numeric = 533;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let au =
+    {
+      name = "Australia";
+      alpha2 = `AU;
+      alpha3 = `AUS;
+      numeric = 36;
+      region = Some "Oceania";
+      sub_region = Some "Australia and New Zealand";
+    }
+
+  let at =
+    {
+      name = "Austria";
+      alpha2 = `AT;
+      alpha3 = `AUT;
+      numeric = 40;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
+
+  let az =
+    {
+      name = "Azerbaijan";
+      alpha2 = `AZ;
+      alpha3 = `AZE;
+      numeric = 31;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let bs =
+    {
+      name = "Bahamas";
+      alpha2 = `BS;
+      alpha3 = `BHS;
+      numeric = 44;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let bh =
+    {
+      name = "Bahrain";
+      alpha2 = `BH;
+      alpha3 = `BHR;
+      numeric = 48;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let bd =
+    {
+      name = "Bangladesh";
+      alpha2 = `BD;
+      alpha3 = `BGD;
+      numeric = 50;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
+
+  let bb =
+    {
+      name = "Barbados";
+      alpha2 = `BB;
+      alpha3 = `BRB;
+      numeric = 52;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let by =
+    {
+      name = "Belarus";
+      alpha2 = `BY;
+      alpha3 = `BLR;
+      numeric = 112;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
+
+  let be =
+    {
+      name = "Belgium";
+      alpha2 = `BE;
+      alpha3 = `BEL;
+      numeric = 56;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
+
+  let bz =
+    {
+      name = "Belize";
+      alpha2 = `BZ;
+      alpha3 = `BLZ;
+      numeric = 84;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let bj =
+    {
+      name = "Benin";
+      alpha2 = `BJ;
+      alpha3 = `BEN;
+      numeric = 204;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let bm =
+    {
+      name = "Bermuda";
+      alpha2 = `BM;
+      alpha3 = `BMU;
+      numeric = 60;
+      region = Some "Americas";
+      sub_region = Some "Northern America";
+    }
+
+  let bt =
+    {
+      name = "Bhutan";
+      alpha2 = `BT;
+      alpha3 = `BTN;
+      numeric = 64;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
 
   let bo =
     {
@@ -1555,6 +1789,8 @@ module Country = struct
       alpha2 = `BO;
       alpha3 = `BOL;
       numeric = 68;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
   let bq =
@@ -1563,6 +1799,8 @@ module Country = struct
       alpha2 = `BQ;
       alpha3 = `BES;
       numeric = 535;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
   let ba =
@@ -1571,11 +1809,39 @@ module Country = struct
       alpha2 = `BA;
       alpha3 = `BIH;
       numeric = 70;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
     }
 
-  let bw = { name = "Botswana"; alpha2 = `BW; alpha3 = `BWA; numeric = 72 }
-  let bv = { name = "Bouvet Island"; alpha2 = `BV; alpha3 = `BVT; numeric = 74 }
-  let br = { name = "Brazil"; alpha2 = `BR; alpha3 = `BRA; numeric = 76 }
+  let bw =
+    {
+      name = "Botswana";
+      alpha2 = `BW;
+      alpha3 = `BWA;
+      numeric = 72;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let bv =
+    {
+      name = "Bouvet Island";
+      alpha2 = `BV;
+      alpha3 = `BVT;
+      numeric = 74;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let br =
+    {
+      name = "Brazil";
+      alpha2 = `BR;
+      alpha3 = `BRA;
+      numeric = 76;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let io =
     {
@@ -1583,21 +1849,99 @@ module Country = struct
       alpha2 = `IO;
       alpha3 = `IOT;
       numeric = 86;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
     }
 
   let bn =
-    { name = "Brunei Darussalam"; alpha2 = `BN; alpha3 = `BRN; numeric = 96 }
+    {
+      name = "Brunei Darussalam";
+      alpha2 = `BN;
+      alpha3 = `BRN;
+      numeric = 96;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
 
-  let bg = { name = "Bulgaria"; alpha2 = `BG; alpha3 = `BGR; numeric = 100 }
-  let bf = { name = "Burkina Faso"; alpha2 = `BF; alpha3 = `BFA; numeric = 854 }
-  let bi = { name = "Burundi"; alpha2 = `BI; alpha3 = `BDI; numeric = 108 }
-  let cv = { name = "Cabo Verde"; alpha2 = `CV; alpha3 = `CPV; numeric = 132 }
-  let kh = { name = "Cambodia"; alpha2 = `KH; alpha3 = `KHM; numeric = 116 }
-  let cm = { name = "Cameroon"; alpha2 = `CM; alpha3 = `CMR; numeric = 120 }
-  let ca = { name = "Canada"; alpha2 = `CA; alpha3 = `CAN; numeric = 124 }
+  let bg =
+    {
+      name = "Bulgaria";
+      alpha2 = `BG;
+      alpha3 = `BGR;
+      numeric = 100;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
+
+  let bf =
+    {
+      name = "Burkina Faso";
+      alpha2 = `BF;
+      alpha3 = `BFA;
+      numeric = 854;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let bi =
+    {
+      name = "Burundi";
+      alpha2 = `BI;
+      alpha3 = `BDI;
+      numeric = 108;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let cv =
+    {
+      name = "Cabo Verde";
+      alpha2 = `CV;
+      alpha3 = `CPV;
+      numeric = 132;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let kh =
+    {
+      name = "Cambodia";
+      alpha2 = `KH;
+      alpha3 = `KHM;
+      numeric = 116;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
+
+  let cm =
+    {
+      name = "Cameroon";
+      alpha2 = `CM;
+      alpha3 = `CMR;
+      numeric = 120;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ca =
+    {
+      name = "Canada";
+      alpha2 = `CA;
+      alpha3 = `CAN;
+      numeric = 124;
+      region = Some "Americas";
+      sub_region = Some "Northern America";
+    }
 
   let ky =
-    { name = "Cayman Islands"; alpha2 = `KY; alpha3 = `CYM; numeric = 136 }
+    {
+      name = "Cayman Islands";
+      alpha2 = `KY;
+      alpha3 = `CYM;
+      numeric = 136;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let cf =
     {
@@ -1605,14 +1949,49 @@ module Country = struct
       alpha2 = `CF;
       alpha3 = `CAF;
       numeric = 140;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
     }
 
-  let td = { name = "Chad"; alpha2 = `TD; alpha3 = `TCD; numeric = 148 }
-  let cl = { name = "Chile"; alpha2 = `CL; alpha3 = `CHL; numeric = 152 }
-  let cn = { name = "China"; alpha2 = `CN; alpha3 = `CHN; numeric = 156 }
+  let td =
+    {
+      name = "Chad";
+      alpha2 = `TD;
+      alpha3 = `TCD;
+      numeric = 148;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let cl =
+    {
+      name = "Chile";
+      alpha2 = `CL;
+      alpha3 = `CHL;
+      numeric = 152;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let cn =
+    {
+      name = "China";
+      alpha2 = `CN;
+      alpha3 = `CHN;
+      numeric = 156;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
+    }
 
   let cx =
-    { name = "Christmas Island"; alpha2 = `CX; alpha3 = `CXR; numeric = 162 }
+    {
+      name = "Christmas Island";
+      alpha2 = `CX;
+      alpha3 = `CXR;
+      numeric = 162;
+      region = Some "Oceania";
+      sub_region = Some "Australia and New Zealand";
+    }
 
   let cc =
     {
@@ -1620,11 +1999,39 @@ module Country = struct
       alpha2 = `CC;
       alpha3 = `CCK;
       numeric = 166;
+      region = Some "Oceania";
+      sub_region = Some "Australia and New Zealand";
     }
 
-  let co = { name = "Colombia"; alpha2 = `CO; alpha3 = `COL; numeric = 170 }
-  let km = { name = "Comoros"; alpha2 = `KM; alpha3 = `COM; numeric = 174 }
-  let cg = { name = "Congo"; alpha2 = `CG; alpha3 = `COG; numeric = 178 }
+  let co =
+    {
+      name = "Colombia";
+      alpha2 = `CO;
+      alpha3 = `COL;
+      numeric = 170;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let km =
+    {
+      name = "Comoros";
+      alpha2 = `KM;
+      alpha3 = `COM;
+      numeric = 174;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let cg =
+    {
+      name = "Congo";
+      alpha2 = `CG;
+      alpha3 = `COG;
+      numeric = 178;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
   let cd =
     {
@@ -1632,37 +2039,209 @@ module Country = struct
       alpha2 = `CD;
       alpha3 = `COD;
       numeric = 180;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
     }
 
-  let ck = { name = "Cook Islands"; alpha2 = `CK; alpha3 = `COK; numeric = 184 }
-  let cr = { name = "Costa Rica"; alpha2 = `CR; alpha3 = `CRI; numeric = 188 }
+  let ck =
+    {
+      name = "Cook Islands";
+      alpha2 = `CK;
+      alpha3 = `COK;
+      numeric = 184;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
+
+  let cr =
+    {
+      name = "Costa Rica";
+      alpha2 = `CR;
+      alpha3 = `CRI;
+      numeric = 188;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let ci =
-    { name = "Côte d'Ivoire"; alpha2 = `CI; alpha3 = `CIV; numeric = 384 }
+    {
+      name = "Côte d'Ivoire";
+      alpha2 = `CI;
+      alpha3 = `CIV;
+      numeric = 384;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
-  let hr = { name = "Croatia"; alpha2 = `HR; alpha3 = `HRV; numeric = 191 }
-  let cu = { name = "Cuba"; alpha2 = `CU; alpha3 = `CUB; numeric = 192 }
-  let cw = { name = "Curaçao"; alpha2 = `CW; alpha3 = `CUW; numeric = 531 }
-  let cy = { name = "Cyprus"; alpha2 = `CY; alpha3 = `CYP; numeric = 196 }
-  let cz = { name = "Czechia"; alpha2 = `CZ; alpha3 = `CZE; numeric = 203 }
-  let dk = { name = "Denmark"; alpha2 = `DK; alpha3 = `DNK; numeric = 208 }
-  let dj = { name = "Djibouti"; alpha2 = `DJ; alpha3 = `DJI; numeric = 262 }
-  let dm = { name = "Dominica"; alpha2 = `DM; alpha3 = `DMA; numeric = 212 }
+  let hr =
+    {
+      name = "Croatia";
+      alpha2 = `HR;
+      alpha3 = `HRV;
+      numeric = 191;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let cu =
+    {
+      name = "Cuba";
+      alpha2 = `CU;
+      alpha3 = `CUB;
+      numeric = 192;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let cw =
+    {
+      name = "Curaçao";
+      alpha2 = `CW;
+      alpha3 = `CUW;
+      numeric = 531;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let cy =
+    {
+      name = "Cyprus";
+      alpha2 = `CY;
+      alpha3 = `CYP;
+      numeric = 196;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let cz =
+    {
+      name = "Czechia";
+      alpha2 = `CZ;
+      alpha3 = `CZE;
+      numeric = 203;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
+
+  let dk =
+    {
+      name = "Denmark";
+      alpha2 = `DK;
+      alpha3 = `DNK;
+      numeric = 208;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let dj =
+    {
+      name = "Djibouti";
+      alpha2 = `DJ;
+      alpha3 = `DJI;
+      numeric = 262;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let dm =
+    {
+      name = "Dominica";
+      alpha2 = `DM;
+      alpha3 = `DMA;
+      numeric = 212;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let do' =
-    { name = "Dominican Republic"; alpha2 = `DO; alpha3 = `DOM; numeric = 214 }
+    {
+      name = "Dominican Republic";
+      alpha2 = `DO;
+      alpha3 = `DOM;
+      numeric = 214;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
-  let ec = { name = "Ecuador"; alpha2 = `EC; alpha3 = `ECU; numeric = 218 }
-  let eg = { name = "Egypt"; alpha2 = `EG; alpha3 = `EGY; numeric = 818 }
-  let sv = { name = "El Salvador"; alpha2 = `SV; alpha3 = `SLV; numeric = 222 }
+  let ec =
+    {
+      name = "Ecuador";
+      alpha2 = `EC;
+      alpha3 = `ECU;
+      numeric = 218;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let eg =
+    {
+      name = "Egypt";
+      alpha2 = `EG;
+      alpha3 = `EGY;
+      numeric = 818;
+      region = Some "Africa";
+      sub_region = Some "Northern Africa";
+    }
+
+  let sv =
+    {
+      name = "El Salvador";
+      alpha2 = `SV;
+      alpha3 = `SLV;
+      numeric = 222;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let gq =
-    { name = "Equatorial Guinea"; alpha2 = `GQ; alpha3 = `GNQ; numeric = 226 }
+    {
+      name = "Equatorial Guinea";
+      alpha2 = `GQ;
+      alpha3 = `GNQ;
+      numeric = 226;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
-  let er = { name = "Eritrea"; alpha2 = `ER; alpha3 = `ERI; numeric = 232 }
-  let ee = { name = "Estonia"; alpha2 = `EE; alpha3 = `EST; numeric = 233 }
-  let sz = { name = "Eswatini"; alpha2 = `SZ; alpha3 = `SWZ; numeric = 748 }
-  let et = { name = "Ethiopia"; alpha2 = `ET; alpha3 = `ETH; numeric = 231 }
+  let er =
+    {
+      name = "Eritrea";
+      alpha2 = `ER;
+      alpha3 = `ERI;
+      numeric = 232;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ee =
+    {
+      name = "Estonia";
+      alpha2 = `EE;
+      alpha3 = `EST;
+      numeric = 233;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let sz =
+    {
+      name = "Eswatini";
+      alpha2 = `SZ;
+      alpha3 = `SWZ;
+      numeric = 748;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let et =
+    {
+      name = "Ethiopia";
+      alpha2 = `ET;
+      alpha3 = `ETH;
+      numeric = 231;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
   let fk =
     {
@@ -1670,20 +2249,69 @@ module Country = struct
       alpha2 = `FK;
       alpha3 = `FLK;
       numeric = 238;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
   let fo =
-    { name = "Faroe Islands"; alpha2 = `FO; alpha3 = `FRO; numeric = 234 }
+    {
+      name = "Faroe Islands";
+      alpha2 = `FO;
+      alpha3 = `FRO;
+      numeric = 234;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
 
-  let fj = { name = "Fiji"; alpha2 = `FJ; alpha3 = `FJI; numeric = 242 }
-  let fi = { name = "Finland"; alpha2 = `FI; alpha3 = `FIN; numeric = 246 }
-  let fr = { name = "France"; alpha2 = `FR; alpha3 = `FRA; numeric = 250 }
+  let fj =
+    {
+      name = "Fiji";
+      alpha2 = `FJ;
+      alpha3 = `FJI;
+      numeric = 242;
+      region = Some "Oceania";
+      sub_region = Some "Melanesia";
+    }
+
+  let fi =
+    {
+      name = "Finland";
+      alpha2 = `FI;
+      alpha3 = `FIN;
+      numeric = 246;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let fr =
+    {
+      name = "France";
+      alpha2 = `FR;
+      alpha3 = `FRA;
+      numeric = 250;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
 
   let gf =
-    { name = "French Guiana"; alpha2 = `GF; alpha3 = `GUF; numeric = 254 }
+    {
+      name = "French Guiana";
+      alpha2 = `GF;
+      alpha3 = `GUF;
+      numeric = 254;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let pf =
-    { name = "French Polynesia"; alpha2 = `PF; alpha3 = `PYF; numeric = 258 }
+    {
+      name = "French Polynesia";
+      alpha2 = `PF;
+      alpha3 = `PYF;
+      numeric = 258;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
 
   let tf =
     {
@@ -1691,28 +2319,179 @@ module Country = struct
       alpha2 = `TF;
       alpha3 = `ATF;
       numeric = 260;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
     }
 
-  let ga = { name = "Gabon"; alpha2 = `GA; alpha3 = `GAB; numeric = 266 }
-  let gm = { name = "Gambia"; alpha2 = `GM; alpha3 = `GMB; numeric = 270 }
-  let ge = { name = "Georgia"; alpha2 = `GE; alpha3 = `GEO; numeric = 268 }
-  let de = { name = "Germany"; alpha2 = `DE; alpha3 = `DEU; numeric = 276 }
-  let gh = { name = "Ghana"; alpha2 = `GH; alpha3 = `GHA; numeric = 288 }
-  let gi = { name = "Gibraltar"; alpha2 = `GI; alpha3 = `GIB; numeric = 292 }
-  let gr = { name = "Greece"; alpha2 = `GR; alpha3 = `GRC; numeric = 300 }
-  let gl = { name = "Greenland"; alpha2 = `GL; alpha3 = `GRL; numeric = 304 }
-  let gd = { name = "Grenada"; alpha2 = `GD; alpha3 = `GRD; numeric = 308 }
-  let gp = { name = "Guadeloupe"; alpha2 = `GP; alpha3 = `GLP; numeric = 312 }
-  let gu = { name = "Guam"; alpha2 = `GU; alpha3 = `GUM; numeric = 316 }
-  let gt = { name = "Guatemala"; alpha2 = `GT; alpha3 = `GTM; numeric = 320 }
-  let gg = { name = "Guernsey"; alpha2 = `GG; alpha3 = `GGY; numeric = 831 }
-  let gn = { name = "Guinea"; alpha2 = `GN; alpha3 = `GIN; numeric = 324 }
+  let ga =
+    {
+      name = "Gabon";
+      alpha2 = `GA;
+      alpha3 = `GAB;
+      numeric = 266;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let gm =
+    {
+      name = "Gambia";
+      alpha2 = `GM;
+      alpha3 = `GMB;
+      numeric = 270;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ge =
+    {
+      name = "Georgia";
+      alpha2 = `GE;
+      alpha3 = `GEO;
+      numeric = 268;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let de =
+    {
+      name = "Germany";
+      alpha2 = `DE;
+      alpha3 = `DEU;
+      numeric = 276;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
+
+  let gh =
+    {
+      name = "Ghana";
+      alpha2 = `GH;
+      alpha3 = `GHA;
+      numeric = 288;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let gi =
+    {
+      name = "Gibraltar";
+      alpha2 = `GI;
+      alpha3 = `GIB;
+      numeric = 292;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let gr =
+    {
+      name = "Greece";
+      alpha2 = `GR;
+      alpha3 = `GRC;
+      numeric = 300;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let gl =
+    {
+      name = "Greenland";
+      alpha2 = `GL;
+      alpha3 = `GRL;
+      numeric = 304;
+      region = Some "Americas";
+      sub_region = Some "Northern America";
+    }
+
+  let gd =
+    {
+      name = "Grenada";
+      alpha2 = `GD;
+      alpha3 = `GRD;
+      numeric = 308;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let gp =
+    {
+      name = "Guadeloupe";
+      alpha2 = `GP;
+      alpha3 = `GLP;
+      numeric = 312;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let gu =
+    {
+      name = "Guam";
+      alpha2 = `GU;
+      alpha3 = `GUM;
+      numeric = 316;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
+    }
+
+  let gt =
+    {
+      name = "Guatemala";
+      alpha2 = `GT;
+      alpha3 = `GTM;
+      numeric = 320;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let gg =
+    {
+      name = "Guernsey";
+      alpha2 = `GG;
+      alpha3 = `GGY;
+      numeric = 831;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let gn =
+    {
+      name = "Guinea";
+      alpha2 = `GN;
+      alpha3 = `GIN;
+      numeric = 324;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
   let gw =
-    { name = "Guinea-Bissau"; alpha2 = `GW; alpha3 = `GNB; numeric = 624 }
+    {
+      name = "Guinea-Bissau";
+      alpha2 = `GW;
+      alpha3 = `GNB;
+      numeric = 624;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
-  let gy = { name = "Guyana"; alpha2 = `GY; alpha3 = `GUY; numeric = 328 }
-  let ht = { name = "Haiti"; alpha2 = `HT; alpha3 = `HTI; numeric = 332 }
+  let gy =
+    {
+      name = "Guyana";
+      alpha2 = `GY;
+      alpha3 = `GUY;
+      numeric = 328;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let ht =
+    {
+      name = "Haiti";
+      alpha2 = `HT;
+      alpha3 = `HTI;
+      numeric = 332;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let hm =
     {
@@ -1720,15 +2499,79 @@ module Country = struct
       alpha2 = `HM;
       alpha3 = `HMD;
       numeric = 334;
+      region = Some "Oceania";
+      sub_region = Some "Australia and New Zealand";
     }
 
-  let va = { name = "Holy See"; alpha2 = `VA; alpha3 = `VAT; numeric = 336 }
-  let hn = { name = "Honduras"; alpha2 = `HN; alpha3 = `HND; numeric = 340 }
-  let hk = { name = "Hong Kong"; alpha2 = `HK; alpha3 = `HKG; numeric = 344 }
-  let hu = { name = "Hungary"; alpha2 = `HU; alpha3 = `HUN; numeric = 348 }
-  let is = { name = "Iceland"; alpha2 = `IS; alpha3 = `ISL; numeric = 352 }
-  let in' = { name = "India"; alpha2 = `IN; alpha3 = `IND; numeric = 356 }
-  let id = { name = "Indonesia"; alpha2 = `ID; alpha3 = `IDN; numeric = 360 }
+  let va =
+    {
+      name = "Holy See";
+      alpha2 = `VA;
+      alpha3 = `VAT;
+      numeric = 336;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let hn =
+    {
+      name = "Honduras";
+      alpha2 = `HN;
+      alpha3 = `HND;
+      numeric = 340;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let hk =
+    {
+      name = "Hong Kong";
+      alpha2 = `HK;
+      alpha3 = `HKG;
+      numeric = 344;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
+    }
+
+  let hu =
+    {
+      name = "Hungary";
+      alpha2 = `HU;
+      alpha3 = `HUN;
+      numeric = 348;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
+
+  let is =
+    {
+      name = "Iceland";
+      alpha2 = `IS;
+      alpha3 = `ISL;
+      numeric = 352;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let in' =
+    {
+      name = "India";
+      alpha2 = `IN;
+      alpha3 = `IND;
+      numeric = 356;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
+
+  let id =
+    {
+      name = "Indonesia";
+      alpha2 = `ID;
+      alpha3 = `IDN;
+      numeric = 360;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
 
   let ir =
     {
@@ -1736,20 +2579,129 @@ module Country = struct
       alpha2 = `IR;
       alpha3 = `IRN;
       numeric = 364;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
     }
 
-  let iq = { name = "Iraq"; alpha2 = `IQ; alpha3 = `IRQ; numeric = 368 }
-  let ie = { name = "Ireland"; alpha2 = `IE; alpha3 = `IRL; numeric = 372 }
-  let im = { name = "Isle of Man"; alpha2 = `IM; alpha3 = `IMN; numeric = 833 }
-  let il = { name = "Israel"; alpha2 = `IL; alpha3 = `ISR; numeric = 376 }
-  let it = { name = "Italy"; alpha2 = `IT; alpha3 = `ITA; numeric = 380 }
-  let jm = { name = "Jamaica"; alpha2 = `JM; alpha3 = `JAM; numeric = 388 }
-  let jp = { name = "Japan"; alpha2 = `JP; alpha3 = `JPN; numeric = 392 }
-  let je = { name = "Jersey"; alpha2 = `JE; alpha3 = `JEY; numeric = 832 }
-  let jo = { name = "Jordan"; alpha2 = `JO; alpha3 = `JOR; numeric = 400 }
-  let kz = { name = "Kazakhstan"; alpha2 = `KZ; alpha3 = `KAZ; numeric = 398 }
-  let ke = { name = "Kenya"; alpha2 = `KE; alpha3 = `KEN; numeric = 404 }
-  let ki = { name = "Kiribati"; alpha2 = `KI; alpha3 = `KIR; numeric = 296 }
+  let iq =
+    {
+      name = "Iraq";
+      alpha2 = `IQ;
+      alpha3 = `IRQ;
+      numeric = 368;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let ie =
+    {
+      name = "Ireland";
+      alpha2 = `IE;
+      alpha3 = `IRL;
+      numeric = 372;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let im =
+    {
+      name = "Isle of Man";
+      alpha2 = `IM;
+      alpha3 = `IMN;
+      numeric = 833;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let il =
+    {
+      name = "Israel";
+      alpha2 = `IL;
+      alpha3 = `ISR;
+      numeric = 376;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let it =
+    {
+      name = "Italy";
+      alpha2 = `IT;
+      alpha3 = `ITA;
+      numeric = 380;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let jm =
+    {
+      name = "Jamaica";
+      alpha2 = `JM;
+      alpha3 = `JAM;
+      numeric = 388;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let jp =
+    {
+      name = "Japan";
+      alpha2 = `JP;
+      alpha3 = `JPN;
+      numeric = 392;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
+    }
+
+  let je =
+    {
+      name = "Jersey";
+      alpha2 = `JE;
+      alpha3 = `JEY;
+      numeric = 832;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let jo =
+    {
+      name = "Jordan";
+      alpha2 = `JO;
+      alpha3 = `JOR;
+      numeric = 400;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let kz =
+    {
+      name = "Kazakhstan";
+      alpha2 = `KZ;
+      alpha3 = `KAZ;
+      numeric = 398;
+      region = Some "Asia";
+      sub_region = Some "Central Asia";
+    }
+
+  let ke =
+    {
+      name = "Kenya";
+      alpha2 = `KE;
+      alpha3 = `KEN;
+      numeric = 404;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ki =
+    {
+      name = "Kiribati";
+      alpha2 = `KI;
+      alpha3 = `KIR;
+      numeric = 296;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
+    }
 
   let kp =
     {
@@ -1757,13 +2709,39 @@ module Country = struct
       alpha2 = `KP;
       alpha3 = `PRK;
       numeric = 408;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
     }
 
   let kr =
-    { name = "Korea Republic of"; alpha2 = `KR; alpha3 = `KOR; numeric = 410 }
+    {
+      name = "Korea Republic of";
+      alpha2 = `KR;
+      alpha3 = `KOR;
+      numeric = 410;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
+    }
 
-  let kw = { name = "Kuwait"; alpha2 = `KW; alpha3 = `KWT; numeric = 414 }
-  let kg = { name = "Kyrgyzstan"; alpha2 = `KG; alpha3 = `KGZ; numeric = 417 }
+  let kw =
+    {
+      name = "Kuwait";
+      alpha2 = `KW;
+      alpha3 = `KWT;
+      numeric = 414;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let kg =
+    {
+      name = "Kyrgyzstan";
+      alpha2 = `KG;
+      alpha3 = `KGZ;
+      numeric = 417;
+      region = Some "Asia";
+      sub_region = Some "Central Asia";
+    }
 
   let la =
     {
@@ -1771,35 +2749,219 @@ module Country = struct
       alpha2 = `LA;
       alpha3 = `LAO;
       numeric = 418;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
     }
 
-  let lv = { name = "Latvia"; alpha2 = `LV; alpha3 = `LVA; numeric = 428 }
-  let lb = { name = "Lebanon"; alpha2 = `LB; alpha3 = `LBN; numeric = 422 }
-  let ls = { name = "Lesotho"; alpha2 = `LS; alpha3 = `LSO; numeric = 426 }
-  let lr = { name = "Liberia"; alpha2 = `LR; alpha3 = `LBR; numeric = 430 }
-  let ly = { name = "Libya"; alpha2 = `LY; alpha3 = `LBY; numeric = 434 }
+  let lv =
+    {
+      name = "Latvia";
+      alpha2 = `LV;
+      alpha3 = `LVA;
+      numeric = 428;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let lb =
+    {
+      name = "Lebanon";
+      alpha2 = `LB;
+      alpha3 = `LBN;
+      numeric = 422;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let ls =
+    {
+      name = "Lesotho";
+      alpha2 = `LS;
+      alpha3 = `LSO;
+      numeric = 426;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let lr =
+    {
+      name = "Liberia";
+      alpha2 = `LR;
+      alpha3 = `LBR;
+      numeric = 430;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ly =
+    {
+      name = "Libya";
+      alpha2 = `LY;
+      alpha3 = `LBY;
+      numeric = 434;
+      region = Some "Africa";
+      sub_region = Some "Northern Africa";
+    }
 
   let li =
-    { name = "Liechtenstein"; alpha2 = `LI; alpha3 = `LIE; numeric = 438 }
+    {
+      name = "Liechtenstein";
+      alpha2 = `LI;
+      alpha3 = `LIE;
+      numeric = 438;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
 
-  let lt = { name = "Lithuania"; alpha2 = `LT; alpha3 = `LTU; numeric = 440 }
-  let lu = { name = "Luxembourg"; alpha2 = `LU; alpha3 = `LUX; numeric = 442 }
-  let mo = { name = "Macao"; alpha2 = `MO; alpha3 = `MAC; numeric = 446 }
-  let mg = { name = "Madagascar"; alpha2 = `MG; alpha3 = `MDG; numeric = 450 }
-  let mw = { name = "Malawi"; alpha2 = `MW; alpha3 = `MWI; numeric = 454 }
-  let my = { name = "Malaysia"; alpha2 = `MY; alpha3 = `MYS; numeric = 458 }
-  let mv = { name = "Maldives"; alpha2 = `MV; alpha3 = `MDV; numeric = 462 }
-  let ml = { name = "Mali"; alpha2 = `ML; alpha3 = `MLI; numeric = 466 }
-  let mt = { name = "Malta"; alpha2 = `MT; alpha3 = `MLT; numeric = 470 }
+  let lt =
+    {
+      name = "Lithuania";
+      alpha2 = `LT;
+      alpha3 = `LTU;
+      numeric = 440;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let lu =
+    {
+      name = "Luxembourg";
+      alpha2 = `LU;
+      alpha3 = `LUX;
+      numeric = 442;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
+
+  let mo =
+    {
+      name = "Macao";
+      alpha2 = `MO;
+      alpha3 = `MAC;
+      numeric = 446;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
+    }
+
+  let mg =
+    {
+      name = "Madagascar";
+      alpha2 = `MG;
+      alpha3 = `MDG;
+      numeric = 450;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let mw =
+    {
+      name = "Malawi";
+      alpha2 = `MW;
+      alpha3 = `MWI;
+      numeric = 454;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let my =
+    {
+      name = "Malaysia";
+      alpha2 = `MY;
+      alpha3 = `MYS;
+      numeric = 458;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
+
+  let mv =
+    {
+      name = "Maldives";
+      alpha2 = `MV;
+      alpha3 = `MDV;
+      numeric = 462;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
+
+  let ml =
+    {
+      name = "Mali";
+      alpha2 = `ML;
+      alpha3 = `MLI;
+      numeric = 466;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let mt =
+    {
+      name = "Malta";
+      alpha2 = `MT;
+      alpha3 = `MLT;
+      numeric = 470;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
 
   let mh =
-    { name = "Marshall Islands"; alpha2 = `MH; alpha3 = `MHL; numeric = 584 }
+    {
+      name = "Marshall Islands";
+      alpha2 = `MH;
+      alpha3 = `MHL;
+      numeric = 584;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
+    }
 
-  let mq = { name = "Martinique"; alpha2 = `MQ; alpha3 = `MTQ; numeric = 474 }
-  let mr = { name = "Mauritania"; alpha2 = `MR; alpha3 = `MRT; numeric = 478 }
-  let mu = { name = "Mauritius"; alpha2 = `MU; alpha3 = `MUS; numeric = 480 }
-  let yt = { name = "Mayotte"; alpha2 = `YT; alpha3 = `MYT; numeric = 175 }
-  let mx = { name = "Mexico"; alpha2 = `MX; alpha3 = `MEX; numeric = 484 }
+  let mq =
+    {
+      name = "Martinique";
+      alpha2 = `MQ;
+      alpha3 = `MTQ;
+      numeric = 474;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let mr =
+    {
+      name = "Mauritania";
+      alpha2 = `MR;
+      alpha3 = `MRT;
+      numeric = 478;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let mu =
+    {
+      name = "Mauritius";
+      alpha2 = `MU;
+      alpha3 = `MUS;
+      numeric = 480;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let yt =
+    {
+      name = "Mayotte";
+      alpha2 = `YT;
+      alpha3 = `MYT;
+      numeric = 175;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let mx =
+    {
+      name = "Mexico";
+      alpha2 = `MX;
+      alpha3 = `MEX;
+      numeric = 484;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let fm =
     {
@@ -1807,37 +2969,209 @@ module Country = struct
       alpha2 = `FM;
       alpha3 = `FSM;
       numeric = 583;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
     }
 
   let md =
-    { name = "Moldova Republic of"; alpha2 = `MD; alpha3 = `MDA; numeric = 498 }
+    {
+      name = "Moldova Republic of";
+      alpha2 = `MD;
+      alpha3 = `MDA;
+      numeric = 498;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
 
-  let mc = { name = "Monaco"; alpha2 = `MC; alpha3 = `MCO; numeric = 492 }
-  let mn = { name = "Mongolia"; alpha2 = `MN; alpha3 = `MNG; numeric = 496 }
-  let me = { name = "Montenegro"; alpha2 = `ME; alpha3 = `MNE; numeric = 499 }
-  let ms = { name = "Montserrat"; alpha2 = `MS; alpha3 = `MSR; numeric = 500 }
-  let ma = { name = "Morocco"; alpha2 = `MA; alpha3 = `MAR; numeric = 504 }
-  let mz = { name = "Mozambique"; alpha2 = `MZ; alpha3 = `MOZ; numeric = 508 }
-  let mm = { name = "Myanmar"; alpha2 = `MM; alpha3 = `MMR; numeric = 104 }
-  let na = { name = "Namibia"; alpha2 = `NA; alpha3 = `NAM; numeric = 516 }
-  let nr = { name = "Nauru"; alpha2 = `NR; alpha3 = `NRU; numeric = 520 }
-  let np = { name = "Nepal"; alpha2 = `NP; alpha3 = `NPL; numeric = 524 }
-  let nl = { name = "Netherlands"; alpha2 = `NL; alpha3 = `NLD; numeric = 528 }
+  let mc =
+    {
+      name = "Monaco";
+      alpha2 = `MC;
+      alpha3 = `MCO;
+      numeric = 492;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
+
+  let mn =
+    {
+      name = "Mongolia";
+      alpha2 = `MN;
+      alpha3 = `MNG;
+      numeric = 496;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
+    }
+
+  let me =
+    {
+      name = "Montenegro";
+      alpha2 = `ME;
+      alpha3 = `MNE;
+      numeric = 499;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let ms =
+    {
+      name = "Montserrat";
+      alpha2 = `MS;
+      alpha3 = `MSR;
+      numeric = 500;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let ma =
+    {
+      name = "Morocco";
+      alpha2 = `MA;
+      alpha3 = `MAR;
+      numeric = 504;
+      region = Some "Africa";
+      sub_region = Some "Northern Africa";
+    }
+
+  let mz =
+    {
+      name = "Mozambique";
+      alpha2 = `MZ;
+      alpha3 = `MOZ;
+      numeric = 508;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let mm =
+    {
+      name = "Myanmar";
+      alpha2 = `MM;
+      alpha3 = `MMR;
+      numeric = 104;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
+
+  let na =
+    {
+      name = "Namibia";
+      alpha2 = `NA;
+      alpha3 = `NAM;
+      numeric = 516;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let nr =
+    {
+      name = "Nauru";
+      alpha2 = `NR;
+      alpha3 = `NRU;
+      numeric = 520;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
+    }
+
+  let np =
+    {
+      name = "Nepal";
+      alpha2 = `NP;
+      alpha3 = `NPL;
+      numeric = 524;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
+
+  let nl =
+    {
+      name = "Netherlands";
+      alpha2 = `NL;
+      alpha3 = `NLD;
+      numeric = 528;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
 
   let nc =
-    { name = "New Caledonia"; alpha2 = `NC; alpha3 = `NCL; numeric = 540 }
+    {
+      name = "New Caledonia";
+      alpha2 = `NC;
+      alpha3 = `NCL;
+      numeric = 540;
+      region = Some "Oceania";
+      sub_region = Some "Melanesia";
+    }
 
-  let nz = { name = "New Zealand"; alpha2 = `NZ; alpha3 = `NZL; numeric = 554 }
-  let ni = { name = "Nicaragua"; alpha2 = `NI; alpha3 = `NIC; numeric = 558 }
-  let ne = { name = "Niger"; alpha2 = `NE; alpha3 = `NER; numeric = 562 }
-  let ng = { name = "Nigeria"; alpha2 = `NG; alpha3 = `NGA; numeric = 566 }
-  let nu = { name = "Niue"; alpha2 = `NU; alpha3 = `NIU; numeric = 570 }
+  let nz =
+    {
+      name = "New Zealand";
+      alpha2 = `NZ;
+      alpha3 = `NZL;
+      numeric = 554;
+      region = Some "Oceania";
+      sub_region = Some "Australia and New Zealand";
+    }
+
+  let ni =
+    {
+      name = "Nicaragua";
+      alpha2 = `NI;
+      alpha3 = `NIC;
+      numeric = 558;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let ne =
+    {
+      name = "Niger";
+      alpha2 = `NE;
+      alpha3 = `NER;
+      numeric = 562;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ng =
+    {
+      name = "Nigeria";
+      alpha2 = `NG;
+      alpha3 = `NGA;
+      numeric = 566;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let nu =
+    {
+      name = "Niue";
+      alpha2 = `NU;
+      alpha3 = `NIU;
+      numeric = 570;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
 
   let nf =
-    { name = "Norfolk Island"; alpha2 = `NF; alpha3 = `NFK; numeric = 574 }
+    {
+      name = "Norfolk Island";
+      alpha2 = `NF;
+      alpha3 = `NFK;
+      numeric = 574;
+      region = Some "Oceania";
+      sub_region = Some "Australia and New Zealand";
+    }
 
   let mk =
-    { name = "North Macedonia"; alpha2 = `MK; alpha3 = `MKD; numeric = 807 }
+    {
+      name = "North Macedonia";
+      alpha2 = `MK;
+      alpha3 = `MKD;
+      numeric = 807;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
 
   let mp =
     {
@@ -1845,39 +3179,209 @@ module Country = struct
       alpha2 = `MP;
       alpha3 = `MNP;
       numeric = 580;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
     }
 
-  let no = { name = "Norway"; alpha2 = `NO; alpha3 = `NOR; numeric = 578 }
-  let om = { name = "Oman"; alpha2 = `OM; alpha3 = `OMN; numeric = 512 }
-  let pk = { name = "Pakistan"; alpha2 = `PK; alpha3 = `PAK; numeric = 586 }
-  let pw = { name = "Palau"; alpha2 = `PW; alpha3 = `PLW; numeric = 585 }
+  let no =
+    {
+      name = "Norway";
+      alpha2 = `NO;
+      alpha3 = `NOR;
+      numeric = 578;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let om =
+    {
+      name = "Oman";
+      alpha2 = `OM;
+      alpha3 = `OMN;
+      numeric = 512;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let pk =
+    {
+      name = "Pakistan";
+      alpha2 = `PK;
+      alpha3 = `PAK;
+      numeric = 586;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
+
+  let pw =
+    {
+      name = "Palau";
+      alpha2 = `PW;
+      alpha3 = `PLW;
+      numeric = 585;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
+    }
 
   let ps =
-    { name = "Palestine State of"; alpha2 = `PS; alpha3 = `PSE; numeric = 275 }
+    {
+      name = "Palestine State of";
+      alpha2 = `PS;
+      alpha3 = `PSE;
+      numeric = 275;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
 
-  let pa = { name = "Panama"; alpha2 = `PA; alpha3 = `PAN; numeric = 591 }
+  let pa =
+    {
+      name = "Panama";
+      alpha2 = `PA;
+      alpha3 = `PAN;
+      numeric = 591;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let pg =
-    { name = "Papua New Guinea"; alpha2 = `PG; alpha3 = `PNG; numeric = 598 }
+    {
+      name = "Papua New Guinea";
+      alpha2 = `PG;
+      alpha3 = `PNG;
+      numeric = 598;
+      region = Some "Oceania";
+      sub_region = Some "Melanesia";
+    }
 
-  let py = { name = "Paraguay"; alpha2 = `PY; alpha3 = `PRY; numeric = 600 }
-  let pe = { name = "Peru"; alpha2 = `PE; alpha3 = `PER; numeric = 604 }
-  let ph = { name = "Philippines"; alpha2 = `PH; alpha3 = `PHL; numeric = 608 }
-  let pn = { name = "Pitcairn"; alpha2 = `PN; alpha3 = `PCN; numeric = 612 }
-  let pl = { name = "Poland"; alpha2 = `PL; alpha3 = `POL; numeric = 616 }
-  let pt = { name = "Portugal"; alpha2 = `PT; alpha3 = `PRT; numeric = 620 }
-  let pr = { name = "Puerto Rico"; alpha2 = `PR; alpha3 = `PRI; numeric = 630 }
-  let qa = { name = "Qatar"; alpha2 = `QA; alpha3 = `QAT; numeric = 634 }
-  let re = { name = "Réunion"; alpha2 = `RE; alpha3 = `REU; numeric = 638 }
-  let ro = { name = "Romania"; alpha2 = `RO; alpha3 = `ROU; numeric = 642 }
+  let py =
+    {
+      name = "Paraguay";
+      alpha2 = `PY;
+      alpha3 = `PRY;
+      numeric = 600;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let pe =
+    {
+      name = "Peru";
+      alpha2 = `PE;
+      alpha3 = `PER;
+      numeric = 604;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let ph =
+    {
+      name = "Philippines";
+      alpha2 = `PH;
+      alpha3 = `PHL;
+      numeric = 608;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
+
+  let pn =
+    {
+      name = "Pitcairn";
+      alpha2 = `PN;
+      alpha3 = `PCN;
+      numeric = 612;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
+
+  let pl =
+    {
+      name = "Poland";
+      alpha2 = `PL;
+      alpha3 = `POL;
+      numeric = 616;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
+
+  let pt =
+    {
+      name = "Portugal";
+      alpha2 = `PT;
+      alpha3 = `PRT;
+      numeric = 620;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let pr =
+    {
+      name = "Puerto Rico";
+      alpha2 = `PR;
+      alpha3 = `PRI;
+      numeric = 630;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let qa =
+    {
+      name = "Qatar";
+      alpha2 = `QA;
+      alpha3 = `QAT;
+      numeric = 634;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let re =
+    {
+      name = "Réunion";
+      alpha2 = `RE;
+      alpha3 = `REU;
+      numeric = 638;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ro =
+    {
+      name = "Romania";
+      alpha2 = `RO;
+      alpha3 = `ROU;
+      numeric = 642;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
 
   let ru =
-    { name = "Russian Federation"; alpha2 = `RU; alpha3 = `RUS; numeric = 643 }
+    {
+      name = "Russian Federation";
+      alpha2 = `RU;
+      alpha3 = `RUS;
+      numeric = 643;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
 
-  let rw = { name = "Rwanda"; alpha2 = `RW; alpha3 = `RWA; numeric = 646 }
+  let rw =
+    {
+      name = "Rwanda";
+      alpha2 = `RW;
+      alpha3 = `RWA;
+      numeric = 646;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
   let bl =
-    { name = "Saint Barthélemy"; alpha2 = `BL; alpha3 = `BLM; numeric = 652 }
+    {
+      name = "Saint Barthélemy";
+      alpha2 = `BL;
+      alpha3 = `BLM;
+      numeric = 652;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let sh =
     {
@@ -1885,6 +3389,8 @@ module Country = struct
       alpha2 = `SH;
       alpha3 = `SHN;
       numeric = 654;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
     }
 
   let kn =
@@ -1893,9 +3399,19 @@ module Country = struct
       alpha2 = `KN;
       alpha3 = `KNA;
       numeric = 659;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
-  let lc = { name = "Saint Lucia"; alpha2 = `LC; alpha3 = `LCA; numeric = 662 }
+  let lc =
+    {
+      name = "Saint Lucia";
+      alpha2 = `LC;
+      alpha3 = `LCA;
+      numeric = 662;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let mf =
     {
@@ -1903,6 +3419,8 @@ module Country = struct
       alpha2 = `MF;
       alpha3 = `MAF;
       numeric = 663;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
   let pm =
@@ -1911,6 +3429,8 @@ module Country = struct
       alpha2 = `PM;
       alpha3 = `SPM;
       numeric = 666;
+      region = Some "Americas";
+      sub_region = Some "Northern America";
     }
 
   let vc =
@@ -1919,10 +3439,29 @@ module Country = struct
       alpha2 = `VC;
       alpha3 = `VCT;
       numeric = 670;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
-  let ws = { name = "Samoa"; alpha2 = `WS; alpha3 = `WSM; numeric = 882 }
-  let sm = { name = "San Marino"; alpha2 = `SM; alpha3 = `SMR; numeric = 674 }
+  let ws =
+    {
+      name = "Samoa";
+      alpha2 = `WS;
+      alpha3 = `WSM;
+      numeric = 882;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
+
+  let sm =
+    {
+      name = "San Marino";
+      alpha2 = `SM;
+      alpha3 = `SMR;
+      numeric = 674;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
 
   let st =
     {
@@ -1930,14 +3469,69 @@ module Country = struct
       alpha2 = `ST;
       alpha3 = `STP;
       numeric = 678;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
     }
 
-  let sa = { name = "Saudi Arabia"; alpha2 = `SA; alpha3 = `SAU; numeric = 682 }
-  let sn = { name = "Senegal"; alpha2 = `SN; alpha3 = `SEN; numeric = 686 }
-  let rs = { name = "Serbia"; alpha2 = `RS; alpha3 = `SRB; numeric = 688 }
-  let sc = { name = "Seychelles"; alpha2 = `SC; alpha3 = `SYC; numeric = 690 }
-  let sl = { name = "Sierra Leone"; alpha2 = `SL; alpha3 = `SLE; numeric = 694 }
-  let sg = { name = "Singapore"; alpha2 = `SG; alpha3 = `SGP; numeric = 702 }
+  let sa =
+    {
+      name = "Saudi Arabia";
+      alpha2 = `SA;
+      alpha3 = `SAU;
+      numeric = 682;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let sn =
+    {
+      name = "Senegal";
+      alpha2 = `SN;
+      alpha3 = `SEN;
+      numeric = 686;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let rs =
+    {
+      name = "Serbia";
+      alpha2 = `RS;
+      alpha3 = `SRB;
+      numeric = 688;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let sc =
+    {
+      name = "Seychelles";
+      alpha2 = `SC;
+      alpha3 = `SYC;
+      numeric = 690;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let sl =
+    {
+      name = "Sierra Leone";
+      alpha2 = `SL;
+      alpha3 = `SLE;
+      numeric = 694;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let sg =
+    {
+      name = "Singapore";
+      alpha2 = `SG;
+      alpha3 = `SGP;
+      numeric = 702;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
 
   let sx =
     {
@@ -1945,16 +3539,59 @@ module Country = struct
       alpha2 = `SX;
       alpha3 = `SXM;
       numeric = 534;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
-  let sk = { name = "Slovakia"; alpha2 = `SK; alpha3 = `SVK; numeric = 703 }
-  let si = { name = "Slovenia"; alpha2 = `SI; alpha3 = `SVN; numeric = 705 }
+  let sk =
+    {
+      name = "Slovakia";
+      alpha2 = `SK;
+      alpha3 = `SVK;
+      numeric = 703;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
+
+  let si =
+    {
+      name = "Slovenia";
+      alpha2 = `SI;
+      alpha3 = `SVN;
+      numeric = 705;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
 
   let sb =
-    { name = "Solomon Islands"; alpha2 = `SB; alpha3 = `SLB; numeric = 90 }
+    {
+      name = "Solomon Islands";
+      alpha2 = `SB;
+      alpha3 = `SLB;
+      numeric = 90;
+      region = Some "Oceania";
+      sub_region = Some "Melanesia";
+    }
 
-  let so = { name = "Somalia"; alpha2 = `SO; alpha3 = `SOM; numeric = 706 }
-  let za = { name = "South Africa"; alpha2 = `ZA; alpha3 = `ZAF; numeric = 710 }
+  let so =
+    {
+      name = "Somalia";
+      alpha2 = `SO;
+      alpha3 = `SOM;
+      numeric = 706;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let za =
+    {
+      name = "South Africa";
+      alpha2 = `ZA;
+      alpha3 = `ZAF;
+      numeric = 710;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 
   let gs =
     {
@@ -1962,13 +3599,59 @@ module Country = struct
       alpha2 = `GS;
       alpha3 = `SGS;
       numeric = 239;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
-  let ss = { name = "South Sudan"; alpha2 = `SS; alpha3 = `SSD; numeric = 728 }
-  let es = { name = "Spain"; alpha2 = `ES; alpha3 = `ESP; numeric = 724 }
-  let lk = { name = "Sri Lanka"; alpha2 = `LK; alpha3 = `LKA; numeric = 144 }
-  let sd = { name = "Sudan"; alpha2 = `SD; alpha3 = `SDN; numeric = 729 }
-  let sr = { name = "Suriname"; alpha2 = `SR; alpha3 = `SUR; numeric = 740 }
+  let ss =
+    {
+      name = "South Sudan";
+      alpha2 = `SS;
+      alpha3 = `SSD;
+      numeric = 728;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let es =
+    {
+      name = "Spain";
+      alpha2 = `ES;
+      alpha3 = `ESP;
+      numeric = 724;
+      region = Some "Europe";
+      sub_region = Some "Southern Europe";
+    }
+
+  let lk =
+    {
+      name = "Sri Lanka";
+      alpha2 = `LK;
+      alpha3 = `LKA;
+      numeric = 144;
+      region = Some "Asia";
+      sub_region = Some "Southern Asia";
+    }
+
+  let sd =
+    {
+      name = "Sudan";
+      alpha2 = `SD;
+      alpha3 = `SDN;
+      numeric = 729;
+      region = Some "Africa";
+      sub_region = Some "Northern Africa";
+    }
+
+  let sr =
+    {
+      name = "Suriname";
+      alpha2 = `SR;
+      alpha3 = `SUR;
+      numeric = 740;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
   let sj =
     {
@@ -1976,10 +3659,29 @@ module Country = struct
       alpha2 = `SJ;
       alpha3 = `SJM;
       numeric = 744;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
     }
 
-  let se = { name = "Sweden"; alpha2 = `SE; alpha3 = `SWE; numeric = 752 }
-  let ch = { name = "Switzerland"; alpha2 = `CH; alpha3 = `CHE; numeric = 756 }
+  let se =
+    {
+      name = "Sweden";
+      alpha2 = `SE;
+      alpha3 = `SWE;
+      numeric = 752;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
+    }
+
+  let ch =
+    {
+      name = "Switzerland";
+      alpha2 = `CH;
+      alpha3 = `CHE;
+      numeric = 756;
+      region = Some "Europe";
+      sub_region = Some "Western Europe";
+    }
 
   let sy =
     {
@@ -1987,6 +3689,8 @@ module Country = struct
       alpha2 = `SY;
       alpha3 = `SYR;
       numeric = 760;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
     }
 
   let tw =
@@ -1995,9 +3699,19 @@ module Country = struct
       alpha2 = `TW;
       alpha3 = `TWN;
       numeric = 158;
+      region = Some "Asia";
+      sub_region = Some "Eastern Asia";
     }
 
-  let tj = { name = "Tajikistan"; alpha2 = `TJ; alpha3 = `TJK; numeric = 762 }
+  let tj =
+    {
+      name = "Tajikistan";
+      alpha2 = `TJ;
+      alpha3 = `TJK;
+      numeric = 762;
+      region = Some "Asia";
+      sub_region = Some "Central Asia";
+    }
 
   let tz =
     {
@@ -2005,20 +3719,99 @@ module Country = struct
       alpha2 = `TZ;
       alpha3 = `TZA;
       numeric = 834;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
     }
 
-  let th = { name = "Thailand"; alpha2 = `TH; alpha3 = `THA; numeric = 764 }
-  let tl = { name = "Timor-Leste"; alpha2 = `TL; alpha3 = `TLS; numeric = 626 }
-  let tg = { name = "Togo"; alpha2 = `TG; alpha3 = `TGO; numeric = 768 }
-  let tk = { name = "Tokelau"; alpha2 = `TK; alpha3 = `TKL; numeric = 772 }
-  let to' = { name = "Tonga"; alpha2 = `TO; alpha3 = `TON; numeric = 776 }
+  let th =
+    {
+      name = "Thailand";
+      alpha2 = `TH;
+      alpha3 = `THA;
+      numeric = 764;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
+
+  let tl =
+    {
+      name = "Timor-Leste";
+      alpha2 = `TL;
+      alpha3 = `TLS;
+      numeric = 626;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
+
+  let tg =
+    {
+      name = "Togo";
+      alpha2 = `TG;
+      alpha3 = `TGO;
+      numeric = 768;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let tk =
+    {
+      name = "Tokelau";
+      alpha2 = `TK;
+      alpha3 = `TKL;
+      numeric = 772;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
+
+  let to' =
+    {
+      name = "Tonga";
+      alpha2 = `TO;
+      alpha3 = `TON;
+      numeric = 776;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
 
   let tt =
-    { name = "Trinidad and Tobago"; alpha2 = `TT; alpha3 = `TTO; numeric = 780 }
+    {
+      name = "Trinidad and Tobago";
+      alpha2 = `TT;
+      alpha3 = `TTO;
+      numeric = 780;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
 
-  let tn = { name = "Tunisia"; alpha2 = `TN; alpha3 = `TUN; numeric = 788 }
-  let tr = { name = "Turkey"; alpha2 = `TR; alpha3 = `TUR; numeric = 792 }
-  let tm = { name = "Turkmenistan"; alpha2 = `TM; alpha3 = `TKM; numeric = 795 }
+  let tn =
+    {
+      name = "Tunisia";
+      alpha2 = `TN;
+      alpha3 = `TUN;
+      numeric = 788;
+      region = Some "Africa";
+      sub_region = Some "Northern Africa";
+    }
+
+  let tr =
+    {
+      name = "Turkey";
+      alpha2 = `TR;
+      alpha3 = `TUR;
+      numeric = 792;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let tm =
+    {
+      name = "Turkmenistan";
+      alpha2 = `TM;
+      alpha3 = `TKM;
+      numeric = 795;
+      region = Some "Asia";
+      sub_region = Some "Central Asia";
+    }
 
   let tc =
     {
@@ -2026,11 +3819,39 @@ module Country = struct
       alpha2 = `TC;
       alpha3 = `TCA;
       numeric = 796;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
-  let tv = { name = "Tuvalu"; alpha2 = `TV; alpha3 = `TUV; numeric = 798 }
-  let ug = { name = "Uganda"; alpha2 = `UG; alpha3 = `UGA; numeric = 800 }
-  let ua = { name = "Ukraine"; alpha2 = `UA; alpha3 = `UKR; numeric = 804 }
+  let tv =
+    {
+      name = "Tuvalu";
+      alpha2 = `TV;
+      alpha3 = `TUV;
+      numeric = 798;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
+
+  let ug =
+    {
+      name = "Uganda";
+      alpha2 = `UG;
+      alpha3 = `UGA;
+      numeric = 800;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let ua =
+    {
+      name = "Ukraine";
+      alpha2 = `UA;
+      alpha3 = `UKR;
+      numeric = 804;
+      region = Some "Europe";
+      sub_region = Some "Eastern Europe";
+    }
 
   let ae =
     {
@@ -2038,6 +3859,8 @@ module Country = struct
       alpha2 = `AE;
       alpha3 = `ARE;
       numeric = 784;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
     }
 
   let gb =
@@ -2046,6 +3869,8 @@ module Country = struct
       alpha2 = `GB;
       alpha3 = `GBR;
       numeric = 826;
+      region = Some "Europe";
+      sub_region = Some "Northern Europe";
     }
 
   let us =
@@ -2054,6 +3879,8 @@ module Country = struct
       alpha2 = `US;
       alpha3 = `USA;
       numeric = 840;
+      region = Some "Americas";
+      sub_region = Some "Northern America";
     }
 
   let um =
@@ -2062,11 +3889,39 @@ module Country = struct
       alpha2 = `UM;
       alpha3 = `UMI;
       numeric = 581;
+      region = Some "Oceania";
+      sub_region = Some "Micronesia";
     }
 
-  let uy = { name = "Uruguay"; alpha2 = `UY; alpha3 = `URY; numeric = 858 }
-  let uz = { name = "Uzbekistan"; alpha2 = `UZ; alpha3 = `UZB; numeric = 860 }
-  let vu = { name = "Vanuatu"; alpha2 = `VU; alpha3 = `VUT; numeric = 548 }
+  let uy =
+    {
+      name = "Uruguay";
+      alpha2 = `UY;
+      alpha3 = `URY;
+      numeric = 858;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
+    }
+
+  let uz =
+    {
+      name = "Uzbekistan";
+      alpha2 = `UZ;
+      alpha3 = `UZB;
+      numeric = 860;
+      region = Some "Asia";
+      sub_region = Some "Central Asia";
+    }
+
+  let vu =
+    {
+      name = "Vanuatu";
+      alpha2 = `VU;
+      alpha3 = `VUT;
+      numeric = 548;
+      region = Some "Oceania";
+      sub_region = Some "Melanesia";
+    }
 
   let ve =
     {
@@ -2074,9 +3929,19 @@ module Country = struct
       alpha2 = `VE;
       alpha3 = `VEN;
       numeric = 862;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
-  let vn = { name = "Viet Nam"; alpha2 = `VN; alpha3 = `VNM; numeric = 704 }
+  let vn =
+    {
+      name = "Viet Nam";
+      alpha2 = `VN;
+      alpha3 = `VNM;
+      numeric = 704;
+      region = Some "Asia";
+      sub_region = Some "South-eastern Asia";
+    }
 
   let vg =
     {
@@ -2084,6 +3949,8 @@ module Country = struct
       alpha2 = `VG;
       alpha3 = `VGB;
       numeric = 92;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
   let vi =
@@ -2092,17 +3959,59 @@ module Country = struct
       alpha2 = `VI;
       alpha3 = `VIR;
       numeric = 850;
+      region = Some "Americas";
+      sub_region = Some "Latin America and the Caribbean";
     }
 
   let wf =
-    { name = "Wallis and Futuna"; alpha2 = `WF; alpha3 = `WLF; numeric = 876 }
+    {
+      name = "Wallis and Futuna";
+      alpha2 = `WF;
+      alpha3 = `WLF;
+      numeric = 876;
+      region = Some "Oceania";
+      sub_region = Some "Polynesia";
+    }
 
   let eh =
-    { name = "Western Sahara"; alpha2 = `EH; alpha3 = `ESH; numeric = 732 }
+    {
+      name = "Western Sahara";
+      alpha2 = `EH;
+      alpha3 = `ESH;
+      numeric = 732;
+      region = Some "Africa";
+      sub_region = Some "Northern Africa";
+    }
 
-  let ye = { name = "Yemen"; alpha2 = `YE; alpha3 = `YEM; numeric = 887 }
-  let zm = { name = "Zambia"; alpha2 = `ZM; alpha3 = `ZMB; numeric = 894 }
-  let zw = { name = "Zimbabwe"; alpha2 = `ZW; alpha3 = `ZWE; numeric = 716 }
+  let ye =
+    {
+      name = "Yemen";
+      alpha2 = `YE;
+      alpha3 = `YEM;
+      numeric = 887;
+      region = Some "Asia";
+      sub_region = Some "Western Asia";
+    }
+
+  let zm =
+    {
+      name = "Zambia";
+      alpha2 = `ZM;
+      alpha3 = `ZMB;
+      numeric = 894;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
+
+  let zw =
+    {
+      name = "Zimbabwe";
+      alpha2 = `ZW;
+      alpha3 = `ZWE;
+      numeric = 716;
+      region = Some "Africa";
+      sub_region = Some "Sub-Saharan Africa";
+    }
 end
 
 let alpha2_to_country = function

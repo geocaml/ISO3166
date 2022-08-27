@@ -1,0 +1,30 @@
+opam-version: "2.0"
+synopsis: "OCaml library for working with ISO3166"
+description: "This OCaml library provides an interface to the ISO3166 standard (a.k.a country codes)"
+maintainer: ["patrick@sirref.org"]
+authors: ["Patrick Ferris"]
+license: "MIT"
+homepage: "https://github.com/geocaml/iso3166"
+bug-reports: "https://github.com/geocaml/iso3166/issues"
+depends: [
+  "dune" {>= "2.9"}
+  "mdx" {with-test}
+  "odoc" {with-doc}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "--promote-install-files=false"
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+  ["dune" "install" "-p" name "--create-install-files" name]
+]
+dev-repo: "git+https://github.com/geocaml/iso3166.git"

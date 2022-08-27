@@ -3,6 +3,8 @@ type country = {
   alpha_2 : string;
   alpha_3 : string;
   numeric : int;
+  region : string;
+  sub_region : string;
 }
 
 let parse_csv_line ~expected s =
@@ -21,8 +23,16 @@ let parse_csv_line ~expected s =
 
 let country_of_string ~expected s =
   match parse_csv_line ~expected s with
-  | name :: alpha_2 :: alpha_3 :: numeric :: _ ->
-      { name; alpha_2; alpha_3; numeric = int_of_string numeric }
+  | name :: alpha_2 :: alpha_3 :: numeric :: _iso_3166_2 :: region :: sub_region
+    :: _ ->
+      {
+        name;
+        alpha_2;
+        alpha_3;
+        numeric = int_of_string numeric;
+        region;
+        sub_region;
+      }
   | _ -> failwith ("Malformed country: " ^ s)
 
 module OCaml = struct
@@ -77,7 +87,7 @@ module OCaml = struct
   let pp_country_type =
     const
       "type t = { name : string; alpha2 : alpha2; alpha3 : alpha3; numeric : \
-       int }"
+       int; region : string option; sub_region : string option }"
 
   let keywords = [ "as"; "to"; "in"; "do" ]
 
@@ -86,9 +96,15 @@ module OCaml = struct
     if List.mem s keywords then s ^ "'" else s
 
   let pp_country ppf (c : country) =
+    let pp_str_opt ppf s =
+      if s <> "\"\"" then pf ppf "(Some \"%s\")" s else pf ppf "None"
+    in
     let name = get_name c in
-    pf ppf "let %s = { name=\"%s\"; alpha2=%a; alpha3=%a; numeric=%i }%!" name
-      c.name pp_poly_var c.alpha_2 pp_poly_var c.alpha_3 c.numeric
+    pf ppf
+      "let %s = { name=\"%s\"; alpha2=%a; alpha3=%a; numeric=%i; region=%a; \
+       sub_region=%a}%!"
+      name c.name pp_poly_var c.alpha_2 pp_poly_var c.alpha_3 c.numeric
+      pp_str_opt c.region pp_str_opt c.sub_region
 
   let pp_country_impl =
     const
@@ -97,6 +113,8 @@ module OCaml = struct
       let alpha3 t = t.alpha3
       let numeric t = t.numeric
       let name t = t.name
+      let region t = t.region
+      let sub_region t = t.sub_region
     |}
 
   let pp_country_module ppf cs =
@@ -115,11 +133,26 @@ module OCaml = struct
       {|
     module Country : sig
       type t
+      (** A country as defined by ISO3166. *)
 
       val alpha2 : t -> alpha2
+      (** The two letter country code. *)
+
       val alpha3 : t -> alpha3
+      (** The three letter country code. *)
+
       val numeric : t -> int
+      (** A numeric country code, note that these are often given as three digits with
+          with smaller numbers getting padded with [0]. *)
+
       val name : t -> string
+      (** The english name of the country *)
+
+      val region : t -> string option
+      (** The {{: https://unstats.un.org/unsd/methodology/m49/overview} english region} name for the country. *)
+
+      val sub_region : t -> string option
+      (** The {{: https://unstats.un.org/unsd/methodology/m49/overview} english sub-region} name for the country. *)
 
       %a
 

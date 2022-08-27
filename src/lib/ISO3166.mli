@@ -508,11 +508,27 @@ val alpha3_of_string : string -> alpha3
 
 module Country : sig
   type t
+  (** A country as defined by ISO3166. *)
 
   val alpha2 : t -> alpha2
+  (** The two letter country code. *)
+
   val alpha3 : t -> alpha3
+  (** The three letter country code. *)
+
   val numeric : t -> int
+  (** A numeric country code, note that these are often given as three digits with
+          with smaller numbers getting padded with [0]. *)
+
   val name : t -> string
+  (** The english name of the country *)
+
+  val region : t -> string option
+  (** The {{: https://unstats.un.org/unsd/methodology/m49/overview} english region} name for the country. *)
+
+  val sub_region : t -> string option
+  (** The {{: https://unstats.un.org/unsd/methodology/m49/overview} english sub-region} name for the country. *)
+
   val af : t
   val ax : t
   val al : t
