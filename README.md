@@ -26,7 +26,7 @@ The original use-case for this library was to encode the conversion from alpha2 
 
 ## Data Source
 
-The data that generates the OCalm file comes from https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/commit/6741ae83a08ce1802d22849db0a944d99e254bae  which has the following disclaimer which applies to this library too.
+The data that generates the OCaml file comes from https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/commit/6741ae83a08ce1802d22849db0a944d99e254bae  which has the following disclaimer which applies to this library too.
 
 > Please check the data independently for accuracy before using it in any system and for any purpose
 >
